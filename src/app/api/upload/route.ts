@@ -2,36 +2,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import csv from 'csv-parser';
-import mongoose from 'mongoose';
+import { connect } from '@/lib/mongoose';
+import { Fixture } from '@/models/Fixture'
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
-const MONGO_URI = process.env.MONGODB_URI || 'your_mongo_connection_string';
 
-const connect = async () => {
-  if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(MONGO_URI);
-  }
-};
-
-const FixtureSchema = new mongoose.Schema({
-  _id: String,
-  //fixture_mid: String,
-  season: Number,
-  competition_name: String,
-  fixture_datetime: Date,
-  fixture_round: Number,
-  home_team: String,
-  away_team: String,
-});
-if (mongoose.models.Fixture) {
-  delete mongoose.models.Fixture;
-}
-const Fixture = mongoose.models.Fixture || mongoose.model('Fixture', FixtureSchema);
 export async function POST(req: NextRequest) {
     const filePath = '/tmp/upload.csv';
   
@@ -75,11 +50,11 @@ export async function POST(req: NextRequest) {
           })
           .on('error', (parseError) => {
             fs.unlinkSync(filePath);
-            reject(NextResponse.json({ error: 'CSV parsing failed', details: parseError }, { status: 400 }));
+            reject(NextResponse.json({ error: 'CSV parsing failed', details: parseError }, { status: 500 }));
           });
       });
   
     } catch (err) {
-      return NextResponse.json({ error: 'File upload failed', details: err }, { status: 400 });
+      return NextResponse.json({ error: 'File upload failed', details: err }, { status: 500 });
     }
   }
