@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connect } from '@/lib/mongoose';
-import { Fixture } from '@/models/Fixture'
+import { Fixture } from '@/models/fixture'
 
 export async function GET(req: NextRequest) {
   await connect();

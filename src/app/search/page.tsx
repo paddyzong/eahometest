@@ -1,15 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-
-type Fixture = {
-    _id: string;
-    season: number;
-    competition_name: string;
-    fixture_datetime: string;
-    fixture_round: number;
-    home_team: string;
-    away_team: string;
-};
+import { Fixture } from '@/types/fixture'
 
 export default function Search() {
     const [query, setQuery] = useState('');

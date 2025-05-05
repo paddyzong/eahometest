@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { connect } from '@/lib/mongoose';
-import { Fixture } from '@/models/Fixture'
-
-
+import { Fixture } from '@/models/fixture'
 
 export async function POST(req: NextRequest) {
     const filePath = '/tmp/upload.csv';
