@@ -1,3 +1,5 @@
+export const runtime = 'nodejs';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { connect } from '@/lib/mongoose';
 import { Fixture } from '@/models/fixture';
