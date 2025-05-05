@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
         fs.createReadStream(filePath)
           .pipe(csv())
           .on('data', (data) => {
-            // Transform the data to use mid as _id
+            console.log('CSV data:', data);
             const { fixture_mid, ...rest } = data;
             const transformedData = {
               _id: data.fixture_mid,
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
                 }
               }));
               await Fixture.bulkWrite(operations);
+              console.log('Bulk write successful');
               fs.unlinkSync(filePath);
               resolve(NextResponse.json({ message: 'Upload successful', count: results.length }));
             } catch (dbError) {

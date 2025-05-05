@@ -28,7 +28,7 @@ export default function ImportPage({ navigateTo }: Props) {
     form.append('file', selectedFile);
 
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      const res = await fetch('/api/upload', { method: 'POST', body: selectedFile });
       if (!res.ok) throw new Error(await res.text());
 
       setSelectedFile(null);
