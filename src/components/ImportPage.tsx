@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 
-interface Props {
-  navigateTo: (page: 'import' | 'search') => void;
-}
-
-export default function ImportPage({ navigateTo }: Props) {
+export default function ImportPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState<{
@@ -94,9 +90,9 @@ export default function ImportPage({ navigateTo }: Props) {
       <div className="mt-6">
         <h3 className="font-medium mb-2">Instructions:</h3>
         <ol className="list-decimal ml-5 space-y-2 text-gray-700">
-          <li>Click "Select CSV File" and choose your fixtures.csv file</li>
+          <li>Click &quot;Select CSV File&quot; and choose your fixtures.csv file</li>
           <li>Wait for the data to be processed</li>
-          <li>Once loaded, navigate to the "Search Fixtures" tab to find and view fixtures</li>
+          <li>Once loaded, navigate to the &quot;Search Fixtures&quot; tab to find and view fixtures</li>
         </ol>
       </div>
     </section>

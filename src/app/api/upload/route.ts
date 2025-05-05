@@ -4,8 +4,9 @@ import fs from 'fs';
 import csv from 'csv-parser';
 import { connect } from '@/lib/mongoose';
 import { Fixture } from '@/models/fixture'
+import type { Fixture as FixtureType } from '@/types/fixture';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) : Promise<Response>{
     const filePath = '/tmp/upload.csv';
   
     try {
@@ -13,17 +14,17 @@ export async function POST(req: NextRequest) {
       fs.writeFileSync(filePath, Buffer.from(buffer));
   
       await connect();
-  
-      const results: any[] = [];
-  
-      return new Promise((resolve, reject) => {
+      
+      const results: FixtureType[] = [];      
+
+      return new Promise<Response>((resolve, reject) => {
         fs.createReadStream(filePath)
           .pipe(csv())
           .on('data', (data) => {
             console.log('CSV data:', data);
             const { fixture_mid, ...rest } = data;
             const transformedData = {
-              _id: data.fixture_mid,
+              _id: fixture_mid,
               ...rest
             };
             results.push(transformedData);

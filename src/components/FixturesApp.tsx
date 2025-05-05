@@ -7,7 +7,6 @@ import SearchPage from './SearchPage';
 import FixtureDetailModal from './FixtureDetailModal';
 
 export default function FixturesApp() {
-    const [fixtures, setFixtures] = useState<Fixture[]>([]);
     const [currentPage, setCurrentPage] = useState<'import' | 'search'>('import');
     const [selectedFixture, setSelectedFixture] = useState<Fixture | null>(null);
 
@@ -36,7 +35,7 @@ export default function FixturesApp() {
             </div>
 
             {currentPage === 'import' && (
-                <ImportPage navigateTo={navigateTo} />
+                <ImportPage />
             )}
 
             {currentPage === 'search' && (
