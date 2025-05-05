@@ -49,12 +49,14 @@ export async function POST(req: NextRequest) : Promise<Response>{
             }
           })
           .on('error', (parseError) => {
+            console.log('CSV parsing error:', parseError);
             fs.unlinkSync(filePath);
             reject(NextResponse.json({ error: 'CSV parsing failed', details: parseError }, { status: 500 }));
           });
       });
   
     } catch (err) {
+      console.log('File upload error:', err);
       return NextResponse.json({ error: 'File upload failed', details: err }, { status: 500 });
     }
   }
