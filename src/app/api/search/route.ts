@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { connect } from '@/lib/mongoose';
+import connect from '@/lib/mongoose';
 import { Fixture } from '@/models/fixture';
 
 export async function GET(req: NextRequest) {
@@ -9,10 +9,10 @@ export async function GET(req: NextRequest) {
 
   const query = req.nextUrl.searchParams.get('q') || '';
   const page = parseInt(req.nextUrl.searchParams.get('page') || '1');
-  const limit = 30; 
-  
+  const limit = 30;
+
   const skip = (page - 1) * limit;
-  
+
   try {
     const results = await Fixture.find({
       $or: [
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
       .skip(skip)
       .limit(30)
       .lean();
-    
+
     return NextResponse.json(results);
   } catch (error) {
     console.error('Error searching fixtures:', error);
